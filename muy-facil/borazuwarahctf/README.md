@@ -98,6 +98,8 @@ Resultado:
 login: borazuwarah   password: 123456
 ```
 
+![Acceso SSH como borazuwarah](Resources/acceso-burazuwarah.png)
+
 ## Acceso inicial
 
 ```
