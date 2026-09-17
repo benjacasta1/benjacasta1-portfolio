@@ -105,7 +105,7 @@ ssh borazuwarah@172.17.0.2
 ```
 Contraseña: 123456
 
-![Acceso SSH como borazuwarah](Resources/acceso-burazuwarah.png)
+
 
 ## Escalada de privilegios
 
