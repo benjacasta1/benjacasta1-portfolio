@@ -158,11 +158,11 @@ sudo ruby -e 'exec "/bin/bash"'
 
 Confirmación de acceso total:
 
-![Escalada de privilegios](Resources/escalada-root.png)
-
 ```
 whoami
 ```
+![Escalada de privilegios](Resources/escalada-root.png)
+
 Resultado: root
 
 ## Conclusión
