@@ -105,6 +105,8 @@ ssh borazuwarah@172.17.0.2
 ```
 Contraseña: 123456
 
+![Acceso SSH como borazuwarah](Resources/acceso-burazuwarah.png)
+
 ## Escalada de privilegios
 
 ```
@@ -127,6 +129,8 @@ Confirmación de acceso total:
 ```
 whoami
 ```
+![Escalada a root](Resources/escalda-root.png)
+
 Resultado: root
 
 ## Conclusión
