@@ -98,7 +98,7 @@ Resultado:
 login: borazuwarah   password: 123456
 ```
 
-![Acceso SSH como borazuwarah](Resources/acceso-burazuwarah.png)
+![Acceso SSH como borazuwarah](resources/acceso-burazuwarah.png)
 
 ## Acceso inicial
 
@@ -131,7 +131,7 @@ Confirmación de acceso total:
 ```
 whoami
 ```
-![Escalada a root](Resources/escalada-root.png)
+![Escalada a root](resources/escalada-root.png)
 
 Resultado: root
 

@@ -63,7 +63,7 @@ Resultado:
 ```
 login: camilo   password: password1
 ```
-![Acceso Camilo](Resources/acceso-camilo.png)
+![Acceso Camilo](resources/acceso-camilo.png)
 
 La fuerza bruta contra juan no dio resultado en un tiempo razonable con el mismo diccionario.
 
@@ -131,7 +131,7 @@ Esta contraseña corresponde al usuario juan.
 
 ## Acceso como juan
 
-![Acceso Juan](Resources/acceso-juan.png)
+![Acceso Juan](resources/acceso-juan.png)
 
 ```
 ssh juan@172.17.0.2
@@ -161,7 +161,7 @@ Confirmación de acceso total:
 ```
 whoami
 ```
-![Escalada de privilegios](Resources/escalada-root.png)
+![Escalada de privilegios](resources/escalada-root.png)
 
 Resultado: root
 
