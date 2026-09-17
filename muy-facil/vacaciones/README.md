@@ -64,6 +64,7 @@ Resultado:
 login: camilo   password: password1
 ```
 ![Acceso Camilo](Resources/acceso-camilo.png)
+
 La fuerza bruta contra juan no dio resultado en un tiempo razonable con el mismo diccionario.
 
 ## Acceso inicial
