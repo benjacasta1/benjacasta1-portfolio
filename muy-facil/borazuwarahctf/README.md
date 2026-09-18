@@ -1,4 +1,18 @@
-# BorazuwaraCTF - Dockerlabs (Muy Fácil)
+# BorazuwaraCTF - DockerLabs (Muy Fácil)
+
+**Dificultad:** Muy Fácil  
+**Fecha:** 09/2026  
+**Sistema:** Linux  
+**IP objetivo:** `172.17.0.2`  
+**Acceso inicial:** SSH mediante credenciales obtenidas por fuerza bruta
+
+## Herramientas
+
+`arp-scan` `Nmap` `curl` `exiftool` `steghide` `Hydra` `SSH`
+
+## Técnicas
+
+`Network Discovery` `Network Enumeration` `Web Enumeration` `EXIF Metadata Analysis` `Steganography` `SSH Brute Force` `Credential Discovery` `Sudo Privilege Escalation`
 
 ## Introducción
 
