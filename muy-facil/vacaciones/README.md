@@ -1,4 +1,18 @@
-# Vacaciones - Dockerlabs (Muy Fácil)
+# Vacaciones - DockerLabs (Muy Fácil)
+
+**Dificultad:** Muy Fácil  
+**Fecha:** 09/2026  
+**Sistema:** Linux  
+**IP objetivo:** `172.17.0.2`  
+**Acceso inicial:** SSH mediante credenciales obtenidas por fuerza bruta
+
+## Herramientas
+
+`arp-scan` `Nmap` `curl` `Gobuster` `Hydra` `SSH` `LinPEAS` `wget` `Python HTTP Server` `Ruby`
+
+## Técnicas
+
+`Network Discovery` `Network Enumeration` `Web Enumeration` `Information Disclosure` `SSH Brute Force` `Credential Discovery` `Local Enumeration` `Automated Enumeration` `Local Mail Enumeration` `Sudo Privilege Escalation`
 
 ## Introducción
 
