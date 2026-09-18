@@ -77,6 +77,8 @@ ssh mario@172.17.0.2
 ```
 Contraseña: chocolate
 
+![Acceso SSH como mario](resources/acceso-mario.png)
+
 ## Escalada de privilegios
 
 ```
@@ -104,6 +106,8 @@ El proceso bash hereda los privilegios de root del proceso padre (vim).
 whoami
 ```
 Resultado: root
+
+![Escalada a root](resources/escalada-root.png)
 
 ## Conclusión
 
