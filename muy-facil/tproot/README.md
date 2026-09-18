@@ -1,4 +1,18 @@
-# Tproot - Dockerlabs (Muy Fácil)
+# Tproot - DockerLabs (Muy Fácil)
+
+**Dificultad:** Muy Fácil  
+**Fecha:** 09/2026  
+**Sistema:** Linux  
+**IP objetivo:** `172.17.0.2`  
+**Acceso inicial:** Explotación remota de vsftpd 2.3.4 mediante backdoor (CVE-2011-2523)
+
+## Herramientas
+
+`arp-scan` `Nmap` `Searchsploit` `Metasploit` `FTP` `Netcat`
+
+## Técnicas
+
+`Network Discovery` `Network Enumeration` `Service Version Enumeration` `Vulnerability Identification` `Exploit Research` `Remote Code Execution` `Reverse Shell`
 
 ## Introducción
 
