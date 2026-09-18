@@ -131,9 +131,9 @@ Confirmación de acceso total:
 ```
 whoami
 ```
-![Escalada a root](resources/escalada-root.png)
-
 Resultado: root
+
+![Escalada a root](resources/escalada-root.png)
 
 ## Conclusión
 
