@@ -1,4 +1,18 @@
-# Obsession - Dockerlabs (Muy Fácil)
+# Obsession - DockerLabs (Muy Fácil)
+
+**Dificultad:** Muy Fácil  
+**Fecha:** 09/2026  
+**Sistema:** Linux  
+**IP objetivo:** `172.17.0.2`  
+**Acceso inicial:** SSH mediante credenciales obtenidas por fuerza bruta
+
+## Herramientas
+
+`arp-scan` `Nmap` `FTP` `Gobuster` `Hydra` `SSH` `Vim`
+
+## Técnicas
+
+`Network Discovery` `Network Enumeration` `FTP Enumeration` `Web Enumeration` `Information Disclosure` `SSH Brute Force` `Credential Discovery` `Sudo Privilege Escalation`
 
 ## Introducción
 
