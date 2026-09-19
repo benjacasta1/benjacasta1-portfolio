@@ -11,7 +11,7 @@ El objetivo es desarrollar y documentar habilidades en reconocimiento, enumeraci
 | Dificultad | Completadas |
 |------------|-------------|
 | Muy Fácil  | 5           |
-| Fácil  | 0           |
+| Fácil  | 1           |
 | Medio  | 0           |
 | Difícil  | 0           |
 
@@ -28,6 +28,12 @@ El objetivo es desarrollar y documentar habilidades en reconocimiento, enumeraci
 | Trust | Network Discovery, Network Enumeration, Service Version Enumeration... | [Ver writeup](muy-facil/trust/README.md) |
 | Vacaciones | Network Discovery, Network Enumeration, Web Enumeration... | [Ver writeup](muy-facil/vacaciones/README.md) |
 
+### Fácil
+
+| Máquina | Técnicas principales | Writeup |
+|---|---|---|
+| Hannah's Coffee | Network Discovery, Network Enumeration, Web Enumeration... | [Ver writeup](facil/hannah-coffee/README.md) |
+
 
 ## Herramientas utilizadas
 
@@ -38,6 +44,7 @@ El objetivo es desarrollar y documentar habilidades en reconocimiento, enumeraci
 - Metasploit
 - Netcat
 - Nmap
+- Python
 - Python HTTP Server
 - Ruby
 - SSH
@@ -45,8 +52,12 @@ El objetivo es desarrollar y documentar habilidades en reconocimiento, enumeraci
 - Vim
 - arp-scan
 - curl
+- debugfs
 - exiftool
+- ffuf
+- getcap
 - steghide
+- wfuzz
 - wget
 
 
@@ -54,25 +65,29 @@ El objetivo es desarrollar y documentar habilidades en reconocimiento, enumeraci
 
 | Técnica | Máquinas |
 |---|---|
-| Network Discovery | 5 |
-| Network Enumeration | 5 |
-| Web Enumeration | 4 |
+| Network Discovery | 6 |
+| Network Enumeration | 6 |
+| Web Enumeration | 5 |
+| Sudo Privilege Escalation | 5 |
 | SSH Brute Force | 4 |
 | Credential Discovery | 4 |
-| Sudo Privilege Escalation | 4 |
 | Information Disclosure | 3 |
 | Service Version Enumeration | 2 |
+| Remote Code Execution | 2 |
+| Reverse Shell | 2 |
 | EXIF Metadata Analysis | 1 |
 | Steganography | 1 |
 | FTP Enumeration | 1 |
 | Vulnerability Identification | 1 |
 | Exploit Research | 1 |
-| Remote Code Execution | 1 |
-| Reverse Shell | 1 |
 | Wildcard Response Handling | 1 |
 | Local Enumeration | 1 |
 | Automated Enumeration | 1 |
 | Local Mail Enumeration | 1 |
+| Parameter Fuzzing | 1 |
+| Local File Inclusion | 1 |
+| FTP Log Poisoning | 1 |
+| Linux Capabilities Abuse | 1 |
 
 <!-- AUTO-END -->
 
