@@ -111,6 +111,8 @@ curl "http://172.17.0.2/index.php?studio=../../../../var/log/vsftpd.log" --data-
 
 Acceso confirmado como www-data.
 
+![Acceso como www-data](resources/acceso-www-data.png)
+
 ## Escalada de privilegios (primer salto: www-data a hannah)
 
 ```
@@ -118,10 +120,8 @@ sudo -l
 ```
 
 Resultado:
-```
-User www-data may run the following commands on 0c20a6921b9d:
-    (hannah) NOPASSWD: /sbin/debugfs -w /opt/hannah_disk.img
-```
+
+![Permiso de sudo sobre debugfs](resources/permiso-sudo-debugfs.png)
 
 debugfs permite manipular imágenes de sistemas de archivos en modo escritura, y admite escapar a una shell del sistema desde su consola interactiva:
 
@@ -160,6 +160,8 @@ Confirmación de acceso total:
 whoami
 ```
 Resultado: root
+
+![Escalada a root](resources/escalada-root.png)
 
 ## Conclusión
 
