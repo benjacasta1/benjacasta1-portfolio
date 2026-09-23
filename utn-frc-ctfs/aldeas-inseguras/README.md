@@ -210,16 +210,3 @@ El desafío demuestra la importancia de validar en el servidor todos los datos r
 El hecho de que `id_jugador_origen` sea un campo `hidden` no proporciona ningún mecanismo de seguridad, ya que cualquier valor enviado por el navegador puede ser modificado.
 
 La combinación de la manipulación del identificador de origen y las reglas de envío y recepción permite aprovechar la lógica de negocio de la aplicación para alcanzar el objetivo de 5000 monedas de oro.
-
-## Evidencias
-
-> Agregar aquí las capturas correspondientes al proceso:
->
-> * Formulario de envío de mercancías.
-> * Petición HTTP original.
-> * Parámetro `id_jugador_origen`.
-> * Petición modificada.
-> * Transferencias entre aldeas.
-> * Estado final de Pedro.
-
-```
