@@ -323,15 +323,3 @@ permite alterar la lógica de la consulta y conseguir un bypass de autenticació
 Para evitar esta vulnerabilidad, el servidor debería utilizar **consultas preparadas o parametrizadas**, evitando concatenar directamente los valores proporcionados por el usuario dentro de consultas SQL.
 
 También deberían implementarse validaciones del lado del servidor y mecanismos adecuados de gestión de autenticación.
-
-## Evidencias
-
-> Agregar aquí las capturas correspondientes al proceso:
->
-> * Formulario de autenticación.
-> * Campo `txtPin`.
-> * Petición HTTP del login.
-> * Prueba con PIN incorrecto.
-> * Petición modificada con `' OR '1'='1`.
-> * Resultado del bypass de autenticación.
-> * Acceso final al Home Banking.
