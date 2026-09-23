@@ -274,15 +274,3 @@ MDliNDZiZGMyMDA2NTU2ZGZmNThjNTM3MTZjNmMwYjk=
 ```
 
 El ejercicio permite practicar conceptos fundamentales de análisis web, como la inspección del HTML, el análisis de peticiones HTTP, la identificación de headers de respuesta y la manipulación de parámetros controlados por el cliente.
-
-## Evidencias
-
-> Agregar aquí las capturas correspondientes al proceso:
->
-> * Página inicial del desafío.
-> * HTML mostrando el campo `hidden` con `id="code"`.
-> * Pestaña Network mostrando la petición `validate.php`.
-> * Response Headers mostrando `X-CODE`.
-> * Campo `hidden` modificado con el valor de `X-CODE`.
-> * Botón Enviar.
-> * Console mostrando el código final.
