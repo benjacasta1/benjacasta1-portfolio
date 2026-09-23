@@ -1,4 +1,3 @@
-```md
 # UTN-FRC CTFs
 
 Repositorio donde documento mi práctica de ciberseguridad mediante desafíos CTF realizados en el marco de actividades de la **UTN-FRC** y el **HackLab de Seguridad**.
@@ -46,4 +45,3 @@ El objetivo es desarrollar y documentar habilidades en reconocimiento, enumeraci
 ## Disclaimer
 
 Todas las actividades documentadas en este repositorio fueron realizadas en entornos de laboratorio autorizados y controlados, con fines educativos.
-```
