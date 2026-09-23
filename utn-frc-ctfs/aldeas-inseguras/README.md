@@ -81,11 +81,7 @@ POST /src/ctl/enviar_mercancia.ctl.php
 
 con los siguientes parámetros:
 
-```text
-id_jugador_origen=32568
-select_jugador_destino=1901
-txt_cantidad=1
-```
+![Petición POST original](resources/peticion-original.png)
 
 El valor `32568` corresponde al identificador de Pedro.
 
