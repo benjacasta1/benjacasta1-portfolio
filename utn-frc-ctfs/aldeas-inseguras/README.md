@@ -171,6 +171,8 @@ ID: 32568
 
 Al realizar una única recepción, Pedro evita la restricción de recibir oro múltiples veces durante el mismo día.
 
+![Pedro supera los 5000 de oro](resources/oro-pedro.png)
+
 ## Vulnerabilidad
 
 La aplicación presenta un problema de **control de acceso** debido a que el identificador del jugador de origen es enviado directamente desde el cliente:
