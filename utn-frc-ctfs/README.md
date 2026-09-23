@@ -3,22 +3,22 @@
 
 Repositorio donde documento mi práctica de ciberseguridad mediante desafíos CTF realizados en el marco de actividades de la **UTN-FRC** y el **HackLab de Seguridad**.
 
-El objetivo es desarrollar y documentar habilidades en reconocimiento, enumeración, análisis de vulnerabilidades y explotación en entornos controlados.
+El objetivo es desarrollar y documentar habilidades en reconocimiento, enumeración, explotación y análisis de vulnerabilidades en entornos controlados.
 
 <!-- AUTO-START -->
 
 ## Progreso
 
-| Estado | Desafíos |
-|---|---:|
-| Resueltos | 1 |
-| En progreso | 0 |
+| Estado | Completados |
+|------------|-------------|
+| CTFs | 1           |
 
 ## Desafíos resueltos
 
 | Desafío | Técnicas principales | Writeup |
 |---|---|---|
-| Aldeas inseguras | Web, Manipulación de parámetros, Control de acceso... | [Ver writeup](aldeas-inseguras/README.md) |
+| Aldeas inseguras | Web, Parameter Manipulation, Access Control... | [Ver writeup](aldeas-inseguras/README.md) |
+
 
 ## Herramientas utilizadas
 
@@ -29,16 +29,17 @@ El objetivo es desarrollar y documentar habilidades en reconocimiento, enumeraci
 - SQL
 - wfuzz
 
+
 ## Skills Matrix
 
 | Técnica | Desafíos |
-|---|---:|
+|---|---|
 | Web Enumeration | 1 |
 | Parameter Manipulation | 1 |
 | Access Control Analysis | 1 |
 | HTTP Request Analysis | 1 |
-| Network Enumeration | 1 |
 | Authentication Analysis | 1 |
+
 
 <!-- AUTO-END -->
 
