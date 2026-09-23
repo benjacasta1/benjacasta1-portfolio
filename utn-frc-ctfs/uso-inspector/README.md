@@ -165,6 +165,8 @@ El código mostrado presenta el formato:
 MDliNDZiZGMyMDA2NTU2ZGZmNThjNTM3MTZjNmMwYjk=
 ```
 
+![Código obtenido](resources/codigo.png)
+
 Su estructura es compatible con una representación **Base64**, debido a la presencia del carácter `=` al final.
 
 Para completar el desafío no es necesario modificar ni decodificar este valor: el objetivo consiste en obtener el código mostrado por la aplicación en la consola.
