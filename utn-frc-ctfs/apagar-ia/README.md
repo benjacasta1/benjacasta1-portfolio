@@ -37,13 +37,16 @@ Cada link lleva a una página `/codes/<hash>/` que muestra una lista de aproxima
 
 El identificador de cada reporte tiene formato de hash MD5 (32 caracteres hexadecimales), lo que en un primer momento sugiere un token no enumerable.
 
-## Análisis de las peticiones
+## Descarte de vectores alternativos
 
-Se descarta en primer lugar que el identificador dependa de la sesión o de la instancia del challenge: al reiniciar la instancia (cambiando la URL base por completo), los hashes listados en "Mis reportes" se mantuvieron exactamente iguales. Esto indica que el hash es una función determinística de algún valor estable, no un token aleatorio generado por sesión.
+Antes de identificar el mecanismo real, se descartan varias hipótesis:
 
-Se intenta enumerar rutas adicionales mediante `gobuster` y `ffuf` sobre `/` y `/codes/`. Se observa que el WAF (Cloudflare) bloquea en bloque las peticiones cuando el User-Agent corresponde a herramientas de pentesting, devolviendo `403` de forma masiva. Forzando un User-Agent de navegador real (`-a "Mozilla/5.0 ..."`) las peticiones pasan correctamente, pero no se encuentran rutas alternativas relevantes.
+- **Dependencia de sesión/instancia:** al reiniciar la instancia del challenge (cambiando la URL base por completo), los hashes listados en "Mis reportes" se mantuvieron exactamente iguales. Esto indica que el hash es una función determinística de algún valor estable, no un token aleatorio generado por sesión.
+- **Rutas alternativas:** se intenta enumerar rutas adicionales mediante `gobuster` y `ffuf` sobre `/` y `/codes/`. Se observa que el WAF (Cloudflare) bloquea en bloque las peticiones cuando el User-Agent corresponde a herramientas de pentesting, devolviendo `403` de forma masiva. Forzando un User-Agent de navegador real (`-a "Mozilla/5.0 ..."`) las peticiones pasan correctamente, pero no se encuentran rutas alternativas relevantes.
+- **IDs numéricos directos:** se prueba acceder directamente a identificadores secuenciales sin hashear (`/codes/1/`, `/codes/2/`, ...), obteniendo `404 Not Found` en todos los casos — el backend efectivamente espera el hash, no el entero en crudo.
+- **Preimagen a partir de datos de usuario:** se prueba si el hash corresponde al MD5 de datos conocidos del usuario autenticado en la plataforma (email, ID numérico de cuenta, nombre completo, combinaciones entre ellos). Ninguna combinación produce el hash esperado, descartando que el identificador dependa de datos propios del usuario.
 
-Se prueba acceder directamente a identificadores numéricos secuenciales (`/codes/1/`, `/codes/2/`, ...), obteniendo `404 Not Found` en todos los casos.
+Ninguno de estos caminos resulta productivo, lo que reorienta el análisis hacia la posibilidad de que el hash sea la preimagen MD5 de un valor simple y de espacio reducido.
 
 ## Identificación del mecanismo de generación del hash
 
@@ -70,9 +73,15 @@ id1: 9912   -> MD5 = 0e1422ea79781ee046484893ce0010c4
 id2: 9995   -> MD5 = 0602940f23884f782058efac46f64b0f
 ```
 
-Se confirma que el backend utiliza un identificador entero secuencial, aplica MD5 sin sal ni componente aleatorio, y expone el resultado en la URL pública sin validar en ningún momento si el reporte solicitado pertenece al usuario autenticado. Esto constituye una vulnerabilidad de tipo IDOR: el espacio de identificadores es completamente enumerable pese a la apariencia de aleatoriedad del hash.
+Se confirma que el backend utiliza un identificador entero secuencial, aplica MD5 sin sal ni componente aleatorio, y expone el resultado en la URL pública sin validar en ningún momento si el reporte solicitado pertenece al usuario autenticado.
 
 Los valores obtenidos (`9912` y `9995`) para los 2 reportes propios indican además que el contador de identificadores es global (compartido entre todos los usuarios de la plataforma), y no específico por usuario.
+
+## Vulnerabilidad identificada
+
+**IDOR (Insecure Direct Object Reference) — CWE-639: Authorization Bypass Through User-Controlled Key**
+
+El identificador de cada reporte parece un token opaco (hash MD5 de 32 caracteres), pero en realidad protege un espacio de valores completamente enumerable: un contador entero secuencial sin componente aleatorio. Combinado con la ausencia de validación de propiedad del recurso en el backend, cualquier usuario autenticado puede acceder al reporte de cualquier otro usuario simplemente calculando `MD5(id)` para un rango de enteros.
 
 ## Explotación
 
@@ -131,31 +140,9 @@ echo -n "5524663362514956" | md5sum
 a8e0e8ff02dde0f62fdf4de5142d7de0
 ```
 
-## Cadena de explotación
+## Impacto
 
-```text
-Inspección de "Mis reportes"
-        ↓
-Identificación del formato del identificador (hash de 32 hex)
-        ↓
-Reinicio de instancia: hash se mantiene igual
-        ↓
-Descarte de token por sesión/instancia
-        ↓
-Fuerza bruta de preimagen MD5 sobre enteros
-        ↓
-Confirmación: hash = MD5(id_entero_secuencial)
-        ↓
-Identificación de rango probable (contador global)
-        ↓
-Automatización de solicitudes sobre el rango
-        ↓
-Búsqueda de patrón de 16 dígitos en cada respuesta
-        ↓
-Obtención del código
-        ↓
-Cálculo del hash MD5 del código
-```
+Más allá de la resolución puntual del desafío, la vulnerabilidad permite a cualquier usuario autenticado de la plataforma leer el contenido de los reportes de **cualquier otro usuario**, sin necesidad de autorización adicional: basta con iterar el contador entero y calcular su MD5. Según la naturaleza de los datos almacenados en los reportes, esto podría exponer información sensible de terceros a escala (no solo del reporte "objetivo" del CTF, sino de cualquier reporte existente en la base de datos).
 
 ## Evidencia
 
