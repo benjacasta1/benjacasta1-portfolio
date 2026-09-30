@@ -1,4 +1,4 @@
-# Aldeas inseguras - UTN-FRC
+# Aldeas inseguras - SoftwareSeguro
 
 **Dificultad:** CTF
 **Fecha:** 09/2026
