@@ -1,4 +1,3 @@
-```python
 #!/usr/bin/env python3
 """
 Genera automáticamente las secciones del README principal de UTN-FRC CTFs,
@@ -498,4 +497,3 @@ def update_main_readme():
 
 if __name__ == "__main__":
     update_main_readme()
-```
