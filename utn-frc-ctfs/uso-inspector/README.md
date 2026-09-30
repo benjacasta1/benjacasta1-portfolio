@@ -1,10 +1,10 @@
 # Uso Inspector - SoftwareSeguro
 
-**Dificultad:** CTF
-**Fecha:** 09/2026
-**Sistema:** Web
-**Objetivo:** Obtener el código del desafío
-**Acceso inicial:** Análisis del HTML + inspección de peticiones HTTP + manipulación de campo hidden
+**Dificultad:** CTF  
+**Fecha:** 09/2026  
+**Sistema:** Web  
+**Objetivo:** Obtener el código del desafío  
+**Acceso inicial:** Análisis del HTML + inspección de peticiones HTTP + manipulación de campo hidden  
 
 ## Herramientas
 
