@@ -1,4 +1,4 @@
-# Uso Inspector - UTN-FRC
+# Uso Inspector - SoftwareSeguro
 
 **Dificultad:** CTF
 **Fecha:** 09/2026
