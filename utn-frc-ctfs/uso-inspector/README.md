@@ -12,224 +12,91 @@
 
 ## Técnicas
 
-`Web Enumeration` `HTTP Request Analysis` `HTML Inspection` `Parameter Manipulation` `Browser DevTools`
+`Web Enumeration` `HTTP Request Analysis` `HTML Inspection` `Parameter Manipulation` `Client-Side Trust Bypass`
 
 ## Introducción
 
 El desafío consiste en obtener un código generado por la aplicación mediante el análisis de las peticiones HTTP realizadas por el navegador.
 
-La aplicación indica explícitamente que es necesario utilizar el inspector de un navegador web para:
-
-1. Encontrar una petición cuya respuesta contenga un header `X-CODE`.
-2. Copiar el valor de dicho header.
-3. Introducirlo en un campo `hidden` presente en el HTML.
-4. Presionar el botón de envío y obtener el código del desafío mediante la consola del navegador.
-
-El objetivo es identificar correctamente la petición, extraer el valor del header y utilizarlo en el formulario.
+La aplicación indica explícitamente que es necesario utilizar el inspector de un navegador web para encontrar una petición cuya respuesta contenga un header `X-CODE`, copiar su valor, introducirlo en un campo `hidden` presente en el HTML, y enviar el formulario para obtener el código final por consola.
 
 ## Reconocimiento
 
-Al acceder a la aplicación se observa una página que contiene un formulario y un botón para enviar la información.
-
-Mediante la inspección del HTML se identifica un campo oculto:
+Al acceder a la aplicación se observa un formulario con un botón de envío. Mediante la inspección del HTML se identifica un campo oculto sin valor:
 
 ```html
 <input type="hidden" id="code" value="">
 ```
 
-El campo posee el identificador:
-
-```text
-code
-```
-
-y actualmente no contiene ningún valor.
-
-Al tratarse de un campo de tipo:
-
-```text
-hidden
-```
-
-su contenido no es visible directamente en la interfaz de la aplicación, pero puede ser inspeccionado y modificado mediante las herramientas de desarrollo del navegador.
+Al ser de tipo `hidden`, su contenido no es visible en la interfaz pero sí es inspeccionable y modificable mediante las herramientas de desarrollo del navegador.
 
 ## Análisis de las peticiones
 
-Se abre **Chrome DevTools → Network** para analizar las peticiones HTTP realizadas por la aplicación.
-
-Durante el análisis se identifica una petición relevante hacia:
-
-```text
-/src/ctl/validate.php
-```
-
-La petición utiliza el método:
-
-```text
-POST
-```
-
-y responde con:
-
-```text
-200 OK
-```
-
-La petición observada corresponde a:
+Se abre **Chrome DevTools → Network** para analizar las peticiones HTTP realizadas por la aplicación. Se identifica una petición relevante:
 
 ```text
 POST /src/ctl/validate.php
 ```
 
-Durante el análisis de la petición también se observa información enviada por el navegador, incluyendo un parámetro:
+con respuesta `200 OK`. Entre los datos enviados por el navegador se observa un parámetro `token=bef93704e7050f99dce733f3978dcf08`, que corresponde a los datos enviados en la petición y no al código solicitado por el desafío.
+
+Dentro de los **headers de respuesta** de esa misma petición se identifica el header indicado por el desafío:
 
 ```text
-token=bef93704e7050f99dce733f3978dcf08
+X-CODE: f2ca1bb6c7e907d06dafe4687e579fce76b37e4e93b7605022da52e6ccc26fd2
 ```
 
-Este valor corresponde a los datos enviados en la petición y no al código solicitado por el desafío.
+Es importante diferenciar este valor (el que debe utilizarse) de otros datos presentes en la petición, como el parámetro `token`.
 
-## Identificación del header X-CODE
+## Vulnerabilidad identificada
 
-Dentro de la información de la respuesta de la petición se busca específicamente el header indicado por el desafío:
+**Exposición de información sensible en headers HTTP + confianza excesiva en datos controlados por el cliente (CWE-200 / CWE-602)**
 
-```text
-X-CODE
-```
+El servidor filtra en un header de respuesta (`X-CODE`) un valor que debería tratarse como secreto de validación, en una petición no directamente relacionada con la obtención del código. Adicionalmente, el mecanismo de validación se apoya en un campo `hidden` del formulario, cuyo valor es enviado por el cliente sin ningún control de integridad (no hay firma, HMAC ni verificación server-side que impida que el valor sea alterado desde el navegador antes del envío). Esto constituye un caso de "Client-Side Enforcement of Server-Side Security": el servidor confía en un dato que el cliente puede modificar libremente.
 
-El valor identificado es:
+## Explotación
 
-```text
-f2ca1bb6c7e907d06dafe4687e579fce76b37e4e93b7605022da52e6ccc26fd2
-```
-
-Este valor es el que debe utilizarse para completar el campo `hidden` encontrado previamente en el HTML.
-
-Es importante diferenciar el valor del header `X-CODE` de otros datos presentes en la petición, como el parámetro `token`.
-
-## Manipulación del campo hidden
-
-Una vez obtenido el valor de `X-CODE`, se vuelve a la pestaña **Elements** de Chrome DevTools.
-
-Inicialmente el campo se encuentra de la siguiente manera:
-
-```html
-<input type="hidden" id="code" value="">
-```
-
-Se modifica temporalmente el atributo `value` para introducir el valor obtenido:
+Con el valor de `X-CODE` obtenido, se vuelve a la pestaña **Elements** de Chrome DevTools y se modifica manualmente el atributo `value` del campo oculto:
 
 ```html
 <input type="hidden" id="code" value="f2ca1bb6c7e907d06dafe4687e579fce76b37e4e93b7605022da52e6ccc26fd2">
 ```
 
-La modificación se realiza directamente desde el inspector del navegador.
+La modificación se realiza directamente desde el inspector del navegador y afecta únicamente al HTML que está siendo utilizado por esa sesión del navegador; no es necesario modificar nada del lado del servidor.
 
-Esto permite que, al enviar el formulario, el valor de `code` sea incluido en la información enviada por el cliente.
-
-## Explotación
-
-Con el campo `hidden` modificado, se vuelve a la página principal y se presiona el botón **Enviar**.
-
-La aplicación procesa el valor introducido en el campo:
-
-```text
-code
-```
-
-y realiza la validación correspondiente.
-
-No es necesario modificar el código fuente del servidor. La modificación realizada mediante DevTools afecta únicamente al HTML que está siendo utilizado por el navegador durante esa sesión.
+Con el campo `hidden` modificado, se vuelve a la página principal y se presiona el botón **Enviar**. La aplicación procesa el valor introducido y realiza la validación correspondiente.
 
 ## Obtención del código
 
-Después de presionar el botón **Enviar**, se abre:
-
-```text
-Chrome DevTools → Console
-```
-
-La aplicación muestra en la consola el código correspondiente al desafío:
+Tras presionar **Enviar**, se abre **Chrome DevTools → Console**. La aplicación muestra en la consola el código correspondiente al desafío:
 
 ```text
 MDliNDZiZGMyMDA2NTU2ZGZmNThjNTM3MTZjNmMwYjk=
 ```
 
-Este valor corresponde al código solicitado por el desafío.
-
-## Análisis del valor obtenido
-
-El código mostrado presenta el formato:
-
-```text
-MDliNDZiZGMyMDA2NTU2ZGZmNThjNTM3MTZjNmMwYjk=
-```
+El formato del valor, con `=` al final, es compatible con una representación **Base64**. Para completar el desafío no es necesario decodificarlo: el objetivo es obtener el código mostrado por la aplicación en consola.
 
 ![Código obtenido](resources/codigo.png)
 
-Su estructura es compatible con una representación **Base64**, debido a la presencia del carácter `=` al final.
+## Impacto
 
-Para completar el desafío no es necesario modificar ni decodificar este valor: el objetivo consiste en obtener el código mostrado por la aplicación en la consola.
-
-## Cadena de explotación
-
-```text
-Inspección de la aplicación
-        ↓
-Chrome DevTools → Network
-        ↓
-Identificación de validate.php
-        ↓
-Análisis de Response Headers
-        ↓
-Identificación de X-CODE
-        ↓
-Obtención del valor de X-CODE
-        ↓
-Chrome DevTools → Elements
-        ↓
-Identificación del input hidden
-        ↓
-Modificación del atributo value
-        ↓
-Envío del formulario
-        ↓
-Chrome DevTools → Console
-        ↓
-Obtención del código
-```
+Cualquier usuario capaz de inspeccionar el tráfico de red (cualquier visitante de la aplicación, sin necesidad de credenciales) puede obtener el valor de validación filtrado en el header `X-CODE` y utilizarlo para satisfacer el control del lado del cliente, sin haber resuelto ninguna lógica real del desafío. En un escenario real, este patrón (secreto de validación expuesto en un header + verificación dependiente de un campo manipulable por el cliente) permitiría bypassear controles de validación pensados para impedir el acceso o la manipulación no autorizada.
 
 ## Evidencia
 
-Durante el análisis se identifican las siguientes evidencias:
-
-### Campo hidden
-
-El HTML contiene:
+### Campo hidden inicial
 
 ```html
 <input type="hidden" id="code" value="">
 ```
 
-Este campo debe ser completado con el valor obtenido del header `X-CODE`.
-
 ### Petición de validación
 
-Se identifica la petición:
-
 ```text
-POST /src/ctl/validate.php
-```
-
-con respuesta:
-
-```text
-200 OK
+POST /src/ctl/validate.php -> 200 OK
 ```
 
 ### Header X-CODE
-
-El valor identificado es:
 
 ```text
 f2ca1bb6c7e907d06dafe4687e579fce76b37e4e93b7605022da52e6ccc26fd2
@@ -237,15 +104,11 @@ f2ca1bb6c7e907d06dafe4687e579fce76b37e4e93b7605022da52e6ccc26fd2
 
 ### Campo modificado
 
-El campo pasa a contener:
-
 ```html
 <input type="hidden" id="code" value="f2ca1bb6c7e907d06dafe4687e579fce76b37e4e93b7605022da52e6ccc26fd2">
 ```
 
 ### Código obtenido
-
-Finalmente, la aplicación muestra en la consola:
 
 ```text
 MDliNDZiZGMyMDA2NTU2ZGZmNThjNTM3MTZjNmMwYjk=
@@ -253,24 +116,10 @@ MDliNDZiZGMyMDA2NTU2ZGZmNThjNTM3MTZjNmMwYjk=
 
 ## Conclusión
 
-El desafío demuestra la utilidad de las herramientas de desarrollo del navegador para analizar el funcionamiento de una aplicación web.
+El desafío demuestra la utilidad de las herramientas de desarrollo del navegador para analizar el funcionamiento de una aplicación web, y cómo un mecanismo de validación que depende de datos controlados por el cliente (un campo `hidden`) no aporta ninguna garantía de seguridad si el servidor no verifica su integridad de forma independiente.
 
-Mediante **Chrome DevTools** fue posible identificar la petición de validación, inspeccionar sus headers de respuesta y encontrar el valor asociado a:
+## Mitigación
 
-```text
-X-CODE
-```
-
-Posteriormente, dicho valor fue introducido en el campo oculto:
-
-```text
-<input type="hidden" id="code" value="">
-```
-
-Finalmente, al enviar el formulario, la aplicación mostró el código del desafío en la consola:
-
-```text
-MDliNDZiZGMyMDA2NTU2ZGZmNThjNTM3MTZjNmMwYjk=
-```
-
-El ejercicio permite practicar conceptos fundamentales de análisis web, como la inspección del HTML, el análisis de peticiones HTTP, la identificación de headers de respuesta y la manipulación de parámetros controlados por el cliente.
+1. No exponer valores de validación en headers de respuesta accesibles al cliente; cualquier secreto usado para validar debe permanecer exclusivamente en el servidor.
+2. No confiar en campos `hidden` ni en ningún dato enviado por el cliente como mecanismo de control de seguridad — un campo `hidden` no es más que una convención de UI, no un control de acceso.
+3. Implementar la validación completa en el servidor, asociando el estado del desafío a la sesión autenticada en lugar de a un valor viajando en el HTML.
