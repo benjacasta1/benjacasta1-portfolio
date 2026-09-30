@@ -1,10 +1,10 @@
 # Home Banking - SoftwareSeguro
 
-- **Dificultad:** CTF  
-- **Fecha:** 09/2026  
-- **Sistema:** Web  
-- **Objetivo:** Obtener acceso al Home Banking  
-- **Acceso inicial:** Análisis de formulario + manipulación del parámetro PIN + SQL Injection  
+**Dificultad:** CTF  
+**Fecha:** 09/2026  
+**Sistema:** Web  
+**Objetivo:** Obtener acceso al Home Banking  
+**Acceso inicial:** Análisis de formulario + manipulación del parámetro PIN + SQL Injection  
 
 ## Herramientas
 
