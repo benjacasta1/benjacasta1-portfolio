@@ -1,10 +1,10 @@
 # Apagar IA - SoftwareSeguro
 
-**Dificultad:** CTF
-**Fecha:** 09/2026
-**Sistema:** Web
-**Objetivo:** Obtener el código de apagado de 16 dígitos y entregar su hash MD5
-**Acceso inicial:** Análisis del HTML + enumeración de identificadores + fuerza bruta de preimagen MD5
+**Dificultad:** CTF  
+**Fecha:** 09/2026  
+**Sistema:** Web  
+**Objetivo:** Obtener el código de apagado de 16 dígitos y entregar su hash MD5  
+**Acceso inicial:** Análisis del HTML + enumeración de identificadores + fuerza bruta de preimagen MD5  
 
 ## Herramientas
 
