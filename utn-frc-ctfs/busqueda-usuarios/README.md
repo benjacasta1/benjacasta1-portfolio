@@ -85,32 +85,6 @@ Inspeccionando el código fuente de la respuesta (Ctrl+U) se encuentra, dentro d
 
 Una inyección HTML de este tipo, sin restricción sobre las etiquetas permitidas, habilita escenarios más graves que el de este desafío puntual: con las mismas condiciones (ausencia de sanitización y de una política de Content-Security-Policy restrictiva) sería posible inyectar `<script>` para ejecutar JavaScript arbitrario en el contexto de la víctima (XSS reflejado clásico), permitiendo robo de cookies de sesión, suplantación de identidad o redirección a sitios maliciosos si el link con el payload es compartido con otro usuario.
 
-## Evidencia
-
-### Búsqueda normal (sin inyección)
-
-![Búsqueda normal](resources/busqueda-normal.png)
-
-### Payload utilizado
-
-```text
-search=test<hr>HACKED<!--
-```
-
-### HTML renderizado por el backend
-
-![HACKED renderizado](resources/hacked.png)
-
-### Código fuente con el código obtenido
-
-![Código fuente](resources/codigo-fuente.png)
-
-### Código del desafío
-
-```text
-a24fc443b7c617783d96417a4f9929dc
-```
-
 ## Conclusión
 
 El desafío demuestra cómo la ausencia de sanitización/escape de caracteres especiales al reflejar input del usuario en el HTML de una página permite inyectar contenido arbitrario, incluyendo elementos visuales (`<hr>`) y comentarios HTML (`<!--`) capaces de ocultar partes legítimas de la respuesta del servidor.
