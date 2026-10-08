@@ -21,7 +21,9 @@ El desafío presenta un blog con un formulario de comentarios protegido por una 
 ## Reconocimiento
 
 Al ingresar con las credenciales provistas (`teny` / `Teny1805`) se accede a la página principal del blog, que incluye:
+
 ![vista principal del blog](resources/blog-pepe.png)
+
 - Un formulario de comentarios (`POST /comentarios.php`, campo `txtComentario`).
 - Un listado de comentarios previos, reflejados sin escape visible en la tabla de resultados.
 - Una política de seguridad declarada vía meta tag:
