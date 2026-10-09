@@ -68,8 +68,8 @@ for n in range(len(abc)):
         nueva_posicion = (posicion - key) % len(abc)
         letra_nueva = abc[nueva_posicion]
         resultado = resultado + letra_nueva
-    print("prueba con key " + str(n), "\n")
-    print(resultado,"\n\n")
+    print("prueba con key " + str(n))
+    print(resultado)
     print()
 ```
 
